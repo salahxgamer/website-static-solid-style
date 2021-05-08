@@ -1,0 +1,17 @@
+
+/* hero Section */
+.hero{	
+    text-align: left;
+    padding-top: 64px;
+    padding-bottom: 88px;
+    height: 100vh;
+    background: linear-gradient( 65deg, #242830 0, #434f65 100%);
+}
+.hero-inner {
+	padding-left: 20px;
+}
+.hero-copy {
+    padding-right: 64px;
+    min-width: 552px;
+    width: 552px;
+}
