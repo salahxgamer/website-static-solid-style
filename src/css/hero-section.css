@@ -1,17 +1,36 @@
-
 /* hero Section */
-.hero{	
+.hero {
     text-align: left;
     padding-top: 64px;
     padding-bottom: 88px;
     height: 100vh;
-    background: linear-gradient( 65deg, #242830 0, #434f65 100%);
+    background: linear-gradient(65deg, #242830 0, #434f65 100%);
 }
+
 .hero-inner {
-	padding-left: 20px;
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
-.hero-copy {
-    padding-right: 64px;
-    min-width: 552px;
+
+.hero-text {
+
+    /*padding-right: 64px;*/
+
+    /*min-width: 552px;*/
     width: 552px;
+}
+
+.hero-art {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+}
+
+.hero-img {
+    width: 30%;
+    -webkit-filter: drop-shadow(10px 10px 20px rgba(0, 0, 0, .7));
+    filter: drop-shadow(10px 10px 20px rgba(0, 0, 0, .7));
 }
