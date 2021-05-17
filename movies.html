@@ -26,7 +26,12 @@
             <li class="page-link button"><a href="#Contact" title="Contact">Contact</a></li>
         </ul>
     </header>
-    <section>
+    <section class="movies-display">
+        <div class="view-selector">
+            <button class="button" onclick="setView('trending')">Trending </button>
+            <button class="button" onclick="setView('watchList')">Watch List</button>
+            <button class="button" onclick="setView('favorite')">Favorite </button>
+        </div>
         <div class="movies-grid">
             <div class="movie-card">
                 <div class="movie-card-container">
@@ -41,10 +46,10 @@
                             <i class="icon" style="--icon : url('../../src/images/movie-card/e-star.svg')"></i>
                             <i class="icon" style="--icon : url('../../src/images/movie-card/e-star.svg')"></i>
                         </div>
-                        <a href="#add" class="movie-add">
+                        <a class="movie-add" onclick="addToWatchList(this.dataset.movieId)" data-movie-id='000000'>
                             <i class="icon" style="--icon : url('../../src/images/movie-card/add.svg')"></i>
                         </a>
-                        <a href="#fav" class="movie-fav">
+                        <a class="movie-fav" onclick="favorite(this.dataset.movieId)" data-movie-id='000000'>
                             <i class="icon" style="--icon : url('../../src/images/movie-card/fav.svg')"></i>
                         </a>
                     </div>

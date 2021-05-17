@@ -1,3 +1,6 @@
+const api_key = '91a335167db195d785887bd5b910de18';
+
+
 /**
  * Creates a new movie card and displays it on the page
  * @param  {String} title       Movie Title
@@ -6,7 +9,7 @@
  * @param  {String} posterURL   Movie Poster URL
  * @return {HTMLElement}        HTMLElement of the created movie card
  */
-function createMovieCard(title, description, rating, posterURL) {
+function createMovieCard(movieId, title, description, rating, posterURL) {
 
     /**
      * Modifies the rating of a movie card by changing star styles
@@ -30,6 +33,8 @@ function createMovieCard(title, description, rating, posterURL) {
     const movie_title = movie_card.getElementsByClassName('movie-title')[0];
     const movie_description = movie_card.getElementsByClassName('movie-description')[0];
     const movie_rating = movie_card.getElementsByClassName('movie-rating')[0];
+    const movie_fav = movie_card.getElementsByClassName('movie-fav')[0];
+    const movie_add = movie_card.getElementsByClassName('movie-add')[0];
 
     // used to change type depending on the rating
     const star = '../../src/images/movie-card/star.svg'
@@ -40,25 +45,19 @@ function createMovieCard(title, description, rating, posterURL) {
     movie_title.innerText = title
     movie_description.innerText = description
     setRating(movie_rating, rating)
+    movie_fav.dataset.movieId = movieId
+    movie_add.dataset.movieId = movieId
+    movie_card.classList.add('generated')
 
     return movies_grid.appendChild(movie_card)
 
 }
 
 
-/**
- * Generates a new movie card for a moview with the id `movie_id`, data is fetched from an api
- * @param  {String} movie_id A valid IMDB Id. ex: 'tt0050083'
- * @return {Undefined}          Doesn't return anything
- */
+
 function generateMovieCard(movie_id) {
-    console.clear()
 
-    // const api_key = '9eb7db00';
-    const api_key = '91a335167db195d785887bd5b910de18';
-
-    // const url = `http://www.omdbapi.com/?i=${movie_id}&apikey=${api_key}`;
-    const url = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${api_key}&language=en-US`
+    const url = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${api_key}`
 
     let xhr = new XMLHttpRequest();
     xhr.open("GET", url);
@@ -67,31 +66,23 @@ function generateMovieCard(movie_id) {
         if (xhr.readyState === 4) {
             console.log(xhr.status);
             movie_data = JSON.parse(xhr.responseText)
-            console.log(movie_data);
+            // console.log(movie_data)
             createMovieCard(
-                // movie_data.Title,
-                // // movie_data.Year, 
-                // movie_data.Plot,
-                // movie_data.imdbRating,
-                // movie_data.Poster
-                movie_data.title,
+                movie_data.id,
+                movie_data.name || movie_data.title,
                 movie_data.overview,
                 movie_data.vote_average,
                 'https://image.tmdb.org/t/p/w300' + movie_data.poster_path
-            )
-
+            );
         }
     };
 
     xhr.send();
+
+
 }
 
 
-// generateMovieCard('tt9032400')
-// generateMovieCard('811367')
-// generateMovieCard('811362')
-// generateMovieCard('811369')
-// generateMovieCard('811307')
 
 function generateMovieCards(page = 1) {
 
@@ -114,6 +105,7 @@ function generateMovieCards(page = 1) {
                     // movie_data.Plot,
                     // movie_data.imdbRating,
                     // movie_data.Poster
+                    movie_data.id,
                     movie_data.name || movie_data.title,
                     movie_data.overview,
                     movie_data.vote_average,
@@ -136,4 +128,42 @@ let page = 1
 function loadMore() {
     page++;
     generateMovieCards(page);
+}
+
+
+const favoriteMovies = new Set()
+const watchListMovies = new Set()
+
+function favorite(movieId) {
+    favoriteMovies.add(movieId)
+    console.log(movieId + ' added to favorite')
+}
+
+function addToWatchList(movieId) {
+    watchListMovies.add(movieId)
+    console.log(movieId + ' added to watch list')
+}
+
+function setView(view) {
+    while (document.getElementsByClassName('movie-card generated')[0]) {
+        document.getElementsByClassName('movie-card generated')[0].remove()
+    }
+    switch (view) {
+        case 'trending':
+            page = 1
+            generateMovieCards()
+            break;
+        case 'watchList':
+            for (let movie_id of watchListMovies) {
+                // console.log(movie_id + ' is rendering')
+                generateMovieCard(movie_id)
+            }
+            break;
+        case 'favorite':
+            for (let movie_id of favoriteMovies) {
+                // console.log(movie_id + ' is rendering')
+                generateMovieCard(movie_id)
+            }
+            break;
+    }
 }
