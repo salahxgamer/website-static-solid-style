@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600" rel="stylesheet">
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="icon" type="image/svg" href="src/images/clapperboard.svg" />
+    <script src="src/js/index.js" type="text/javascript" charset="utf-8" async defer></script>
+    <script src="src/js/movie.js" type="text/javascript" charset="utf-8" async defer></script>
+    <title>Movies website</title>
+</head>
+
+<body>
+    <!-- Header section -->
+    <header class="header" id="header-section">
+        <h1 class="header-logo">
+            <a href="#">
+                <img class="header-logo-image" src="src/images/clapperboard.svg" alt="Logo">
+                <span class="header-logo-title">Movies Online</span>
+            </a>
+        </h1>
+        <ul class="page-links-list">
+            <li class="page-link button-styled-1"><a href="index.html" title="Home">Home</a></li>
+            <li class="page-link button-styled-1"><a href="index.html#features-section" title="Features">Features</a></li>
+            <li class="page-link button-styled-1"><a href="store.html" title="Store">Store</a></li>
+            <li class="page-link button-styled-1"><a href="movies.html" title="Movies">Movies</a></li>
+            <li class="page-link button-styled-1"><a href="index.html#contact-section" title="Contact">Contact</a></li>
+        </ul>
+    </header>
+    <main>
+        <section class="info-section">
+            <div class="poster-container">
+                <img src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/32vLDKSzcCMh55zqqaSqqUA8naz.jpg" alt="Movie Poster" class="poster">
+            </div>
+            <div class="text-container">
+                <h1 class="movie-title">title</h1>
+                <ul class="genre-container">
+                    <li class="movie-genre hidden">genre 1</li>
+                </ul>
+                <h2>Rating :</h2>
+                <p class="rating-text">This movie has scored :<span class="movie-rating">70</span>%</p>
+                <h2>Overview :</h2>
+                <p class="movie-description">Set before the events of ‘Soul’, 22 refuses to go to Earth, enlisting a gang of 5 new souls in attempt of rebellion. However, 22’s subversive plot leads to a surprising revelation about the meaning of life.</p>
+                <a class="button button-primary" href="#trailer-section">Watch The Trailer</a>
+            </div>
+        </section>
+        <section class="trailer-section" id="trailer-section">
+            <div class="trailer-container">
+                <iframe width="560" height="315" class="trailer-player" src="https://www.youtube.com/embed/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

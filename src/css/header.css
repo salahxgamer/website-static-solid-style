@@ -1,42 +1,43 @@
 .header {
-	padding: 10px 20px;
-	color: #fff;
-	flex: auto;
-	display: flex;
-	align-items: center;
-	background: #2c313a
+    padding: 10px 20px;
+    color: #fff;
+    flex: auto;
+    display: flex;
+    align-items: center;
+    background: #2c313a
 }
 
 .header * {
-	margin: 0px
+    margin: 0px
 }
 
 .header a {
-	text-decoration: none;
-	color: inherit;
-	display: flex;
-	align-items: center;
-	width: 100%
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    width: 100%
 }
 
 .header-logo {
-	width: 90%
+    width: 90%
 }
 
 .header-logo-title {
-	font-size: 2rem;
-	margin-left: 20px;
-	white-space: nowrap
+    font-size: 2rem;
+    margin-left: 20px;
+    white-space: nowrap
 }
 
 .header-logo-image {
-	height: 100%
+    height: 50px;
+    width: 50px;
 }
 
 .page-links-list {
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
-	list-style: none;
-	margin: 0px 10%
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    list-style: none;
+    margin: 0px 10%
 }

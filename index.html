@@ -4,8 +4,9 @@
 <head>
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600" rel="stylesheet">
     <link rel="stylesheet" href="src/css/style.css">
+    <link rel="icon" type="image/svg" href="src/images/clapperboard.svg" />
+    <script src="src/js/index.js" type="text/javascript" charset="utf-8" async defer></script>
     <title>Movies website</title>
-    <link rel="icon" type="image/svg" href="src/images/favicon.svg" />
 </head>
 
 <body>
@@ -13,21 +14,21 @@
     <header class="header" id="header-section">
         <h1 class="header-logo">
             <a href="#">
-                <img class="header-logo-image" src="src/images/logo.svg" alt="Logo">
+                <img class="header-logo-image" src="src/images/clapperboard.svg" alt="Logo">
                 <span class="header-logo-title">Movies Online</span>
             </a>
         </h1>
         <ul class="page-links-list">
-            <li class="page-link button"><a href="index.html" title="Home">Home</a></li>
-            <li class="page-link button"><a href="index.html#features-section" title="Features">Features</a></li>
-            <li class="page-link button"><a href="store.html" title="Store">Store</a></li>
-            <li class="page-link button"><a href="movies.html" title="Movies">Movies</a></li>
-            <li class="page-link button"><a href="#Contact" title="Contact">Contact</a></li>
+            <li class="page-link button-styled-1"><a href="index.html" title="Home">Home</a></li>
+            <li class="page-link button-styled-1"><a href="index.html#features-section" title="Features">Features</a></li>
+            <li class="page-link button-styled-1"><a href="store.html" title="Store">Store</a></li>
+            <li class="page-link button-styled-1"><a href="movies.html" title="Movies">Movies</a></li>
+            <li class="page-link button-styled-1"><a href="index.html#contact-section" title="Contact">Contact</a></li>
         </ul>
     </header>
     <main>
         <!-- Hero section -->
-        <section class="hero" id="heor-section">
+        <section class="hero" id="hero-section">
             <div class="container">
                 <div class="hero-inner">
                     <div class="hero-text">
@@ -211,6 +212,15 @@
                     </div>
                 </div>
             </div>
+        </section>
+        <section class="contact-section" id="contact-section">
+            <form>
+                <h1 class="contact-title">Contact Us :</h1>
+                <input name="name" type="text" class="feedback-input" placeholder="Name" />
+                <input name="email" type="text" class="feedback-input" placeholder="Email" />
+                <textarea name="text" class="feedback-input" placeholder="Comment"></textarea>
+                <input type="submit" value="SUBMIT" />
+            </form>
         </section>
     </main>
 </body>

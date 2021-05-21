@@ -86,7 +86,10 @@
     background-position-y: center;
 }
 
-.movie-title {}
+.movie-title {
+    color: #fff;
+    text-decoration: none;
+}
 
 .movie-description {
     max-height: 12rem;

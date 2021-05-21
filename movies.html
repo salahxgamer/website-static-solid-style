@@ -4,8 +4,9 @@
 <head>
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600" rel="stylesheet">
     <link rel="stylesheet" href="src/css/style.css">
-    <link rel="icon" type="image/svg" href="src/images/favicon.svg" />
+    <link rel="icon" type="image/svg" href="src/images/clapperboard.svg" />
     <script src="src/js/index.js" type="text/javascript" charset="utf-8" async defer></script>
+    <script src="src/js/movies.js" type="text/javascript" charset="utf-8" async defer></script>
     <title>Movies website</title>
 </head>
 
@@ -14,16 +15,16 @@
     <header class="header" id="header-section">
         <h1 class="header-logo">
             <a href="#">
-                <img class="header-logo-image" src="src/images/logo.svg" alt="Logo">
+                <img class="header-logo-image" src="src/images/clapperboard.svg" alt="Logo">
                 <span class="header-logo-title">Movies Online</span>
             </a>
         </h1>
         <ul class="page-links-list">
-            <li class="page-link button"><a href="index.html" title="Home">Home</a></li>
-            <li class="page-link button"><a href="index.html#features-section" title="Features">Features</a></li>
-            <li class="page-link button"><a href="store.html" title="Store">Store</a></li>
-            <li class="page-link button"><a href="movies.html" title="Movies">Movies</a></li>
-            <li class="page-link button"><a href="#Contact" title="Contact">Contact</a></li>
+            <li class="page-link button-styled-1"><a href="index.html" title="Home">Home</a></li>
+            <li class="page-link button-styled-1"><a href="index.html#features-section" title="Features">Features</a></li>
+            <li class="page-link button-styled-1"><a href="store.html" title="Store">Store</a></li>
+            <li class="page-link button-styled-1"><a href="movies.html" title="Movies">Movies</a></li>
+            <li class="page-link button-styled-1"><a href="index.html#contact-section" title="Contact">Contact</a></li>
         </ul>
     </header>
     <section class="movies-display">
@@ -36,7 +37,7 @@
             <div class="movie-card">
                 <div class="movie-card-container">
                     <div class="movie-card-overlay"></div>
-                    <h2 class="movie-title">Movie Title</h2>
+                    <h2><a href="movie.html?movie_id=" class="movie-title">Movie Title</a></h2>
                     <p class="movie-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sollicitudin, elit in aliquet tincidunt, augue elit fermentum augue. Donec.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                     <div class="movie-tools">
                         <div class="movie-rating">
