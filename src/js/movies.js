@@ -44,8 +44,8 @@ function createMovieCard(movie_id, title, description, rating, posterURL) {
     movie_title.href = `movie.html?movie_id=${movie_id}`
     movie_description.innerText = description
     setRating(movie_rating, rating)
-    movie_fav.dataset.movie_id = movie_id
-    movie_add.dataset.movie_id = movie_id
+    movie_fav.dataset.movieId = movie_id
+    movie_add.dataset.movieId = movie_id
     movie_card.classList.add('generated')
 
     return movies_grid.appendChild(movie_card)
@@ -65,6 +65,8 @@ function generateMovieCard(movie_id) {
     let xhr = new XMLHttpRequest();
     xhr.open("GET", url);
 
+
+    // Response Handler
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
             // console.log(xhr.status);
@@ -88,7 +90,7 @@ function generateMovieCard(movie_id) {
 
 /**
  * Generate movie cards for trending movies
- * @param  {Number} page Page number
+ * @param  {Number}    page Page number
  * @return {Null}      returns nothing
  */
 function generateMovieCards(page = 1) {
@@ -98,6 +100,7 @@ function generateMovieCards(page = 1) {
     let xhr = new XMLHttpRequest();
     xhr.open("GET", url);
 
+    // Response Handler
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
             console.log(xhr.status);
@@ -122,10 +125,19 @@ function generateMovieCards(page = 1) {
 }
 
 
-// Initiate the page of trending movies
-generateMovieCards();
 
-let page = 1
+// get URL parameters
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+// get page param
+let page = urlParams.get('page') || 1
+
+console.log(page);
+
+
+// Initiate the page of trending movies
+generateMovieCards(page);
+
 
 /**
  * loads more movie cards
@@ -133,6 +145,13 @@ let page = 1
  */
 function loadMore() {
     page++;
+    // Change the current URL to have the updated page param
+    urlParams.set('page', page)
+    const nextUrl = window.location.origin + window.location.pathname + '?' + urlParams.toString();
+    const nextTitle = `Movies Home | Page:${page}`
+    // This will replace the current entry in the browser's history, without reloading
+    window.history.replaceState({}, nextTitle, nextUrl);
+
     generateMovieCards(page);
 }
 
@@ -140,12 +159,12 @@ function loadMore() {
  * A unique array (Set) of user favorite movies by id
  * @type {Set}
  */
-const favoriteMovies = new Set()
+const favoriteMovies = new Set(readFromLocalStorage('favoriteMovies') || [])
 /**
- * A unique array (Set)of user watch list movies by id
+ * A unique array (Set) of user watch list movies by id
  * @type {Set}
  */
-const watchListMovies = new Set()
+const watchListMovies = new Set(readFromLocalStorage('watchListMovies') || [])
 
 /**
  * add movie to favorte list
@@ -154,6 +173,7 @@ const watchListMovies = new Set()
 function favorite(movie_id) {
     favoriteMovies.add(movie_id)
     // console.log(movie_id + ' added to favorite')
+    writeToLocalStorage('favoriteMovies', [...favoriteMovies])
 }
 /**
  * add move to watch list
@@ -162,34 +182,87 @@ function favorite(movie_id) {
 function addToWatchList(movie_id) {
     watchListMovies.add(movie_id)
     // console.log(movie_id + ' added to watch list')
+    writeToLocalStorage('watchListMovies', [...watchListMovies])
 }
+
+
+/**
+ * Properly handles situation like 'localStorage not being supported by the browser' and excedding localSorage quota.
+ Supports storing any kind of data
+ * @param  {String} key   property key
+ * @param  {Any} value    property value to store
+ * @return {boolean}      true if succes else false
+ */
+function writeToLocalStorage(key, value) {
+    if (typeof(Storage) == 'undefined') {
+        alert("Your browser doesn't support HTML5 LocalStorage which this site make use of. Some features may not be available. Consider upgrading your browser to the latest version");
+        return false;
+    }
+
+    value = JSON.stringify(value); //serializing non-string data types to string
+
+    try {
+        window.localStorage.setItem(key, value);
+    } catch (e) {
+        if (e == QUOTA_EXCEEDED_ERR) {
+            alert('Local storage Quota exceeded! .Clearing localStorage');
+            localStorage.clear();
+            window.localStorage.setItem(key, value); //Try saving the preference again
+        }
+    }
+
+    return true;
+}
+
+
+/**
+ * Reads values from local storage handling errors
+ * @param  {String} key Property key
+ * @return {Any}        Property value
+ */
+function readFromLocalStorage(key) {
+    if (typeof(Storage) == 'undefined') {
+        //Broswer doesnt support local storage
+        return null;
+    }
+
+    let value = JSON.parse(localStorage.getItem(key));
+    return value;
+
+}
+
 
 /**
  * switch the view to : trending, watch list, favorite list
  * @param {String} view view mode : `trending`, 'watchList', `favorite`
  */
-function setView(view) {
+function setView(view = 'trending') {
     // Delete all the movies cards
     while (document.getElementsByClassName('movie-card generated')[0]) {
         document.getElementsByClassName('movie-card generated')[0].remove()
     }
     // Generate new movies cards
-    switch (view = 'trending') {
+    switch (view) {
         case 'trending':
             page = 1
             generateMovieCards()
             break;
         case 'watchList':
+            // Generate movie card for each movie
             for (let movie_id of watchListMovies) {
                 // console.log(movie_id + ' is rendering')
                 generateMovieCard(movie_id)
             }
             break;
         case 'favorite':
+            // Generate movie card for each movie
             for (let movie_id of favoriteMovies) {
                 // console.log(movie_id + ' is rendering')
                 generateMovieCard(movie_id)
             }
+            break;
+        default:
+            console.error(view, 'is an incorrect view type !')
             break;
     }
 }
